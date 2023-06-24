@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  # The application
+  app:
+    container_name: delivery_service
+    build: .
+    env_file:
+      - ./.env
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - .:/opt/app
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: rabbitmq
+    volumes:
+      - /opt/app/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+
+  redis:
+    container_name: redis
+    image: redis:5-alpine
+    ports:
+      - 6377:6379
