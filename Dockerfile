@@ -11,4 +11,4 @@ RUN yarn
 
 COPY . .
 
-ENTRYPOINT yarn run prebuild && yarn run build && yarn run start:prod
+ENTRYPOINT yarn run prebuild && yarn run build && yarn run start:dev
